@@ -1,0 +1,3 @@
+C:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision/build/CMakeFiles/CloudTracker.dir
+C:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision/build/CMakeFiles/ZERO_CHECK.dir

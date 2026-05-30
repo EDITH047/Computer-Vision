@@ -1,0 +1,10 @@
+^C:\USERS\ANSHI\ONEDRIVE\DESKTOP\COMPUTER VISION\COMPUTER-VISION\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision" "-BC:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision/build" --check-stamp-file "C:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
