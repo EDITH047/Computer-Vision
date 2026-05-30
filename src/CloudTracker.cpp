@@ -253,6 +253,11 @@ void CloudTracker::showResults() {
     // Display Wind Speed Map (Normalize for visualization)
     cv::Mat wind_speed_vis;
     cv::normalize(m_wind_speed_map, wind_speed_vis, 0, 255, cv::NORM_MINMAX, CV_8UC1);
+    
+    // Invert visualization so low values map to Red and high values to Blue
+    // to match physical expectations where storm eye (small optical flow) has high wind speeds.
+    wind_speed_vis = 255 - wind_speed_vis;
+    
     cv::applyColorMap(wind_speed_vis, wind_speed_vis, cv::COLORMAP_JET);
     
     // Apply mask so we only see speed on clouds

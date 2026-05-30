@@ -1,6 +1,6 @@
-^C:\USERS\ANSHI\ONEDRIVE\DESKTOP\COMPUTER VISION\COMPUTER-VISION\BUILD\CMAKEFILES\9748BEDD3732BDB769876D5703E99549\GENERATE.STAMP.RULE
+^D:\COMPUTER-VISION\COMPUTER-VISION\BUILD\CMAKEFILES\A849DBE0F0CAA85A1D118740C79D9546\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision" "-BC:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/anshi/OneDrive/Desktop/Computer Vision/Computer-Vision/build/CloudTracker.slnx"
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Computer-Vision/Computer-Vision -BD:/Computer-Vision/Computer-Vision/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Computer-Vision/Computer-Vision/build/CloudTracker.slnx
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
