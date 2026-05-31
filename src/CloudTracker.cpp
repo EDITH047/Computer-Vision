@@ -251,20 +251,37 @@ void CloudTracker::drawLegend(cv::Mat &image) {
   std::string text_mid = "Med";
   std::string text_max = "High";
 
+  // Draw shadow first
+  cv::putText(image, text_min, cv::Point(start_x + 1, start_y + legend_height + 21),
+              cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
   cv::putText(image, text_min, cv::Point(start_x, start_y + legend_height + 20),
               cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1,
               cv::LINE_AA);
-  // Draw "Med" shadow for contrast if needed, or just white
+  // Draw "Med" shadow for contrast
+  cv::putText(
+      image, text_mid,
+      cv::Point(start_x + legend_width / 2 - 14, start_y + legend_height + 21),
+      cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
   cv::putText(
       image, text_mid,
       cv::Point(start_x + legend_width / 2 - 15, start_y + legend_height + 20),
       cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1, cv::LINE_AA);
+  // Draw "High" shadow
+  cv::putText(
+      image, text_max,
+      cv::Point(start_x + legend_width - 34, start_y + legend_height + 21),
+      cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1, cv::LINE_AA);
   cv::putText(
       image, text_max,
       cv::Point(start_x + legend_width - 35, start_y + legend_height + 20),
       cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1, cv::LINE_AA);
-  cv::putText(image, "Wind Speed",
-              cv::Point(start_x + legend_width / 2 - 40, start_y - 10),
+  // Draw Title shadow
+  cv::putText(image, "Wind Speed (km/hr)",
+              cv::Point(start_x + legend_width / 2 - 64, start_y - 9),
+              cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1,
+              cv::LINE_AA);
+  cv::putText(image, "Wind Speed (km/hr)",
+              cv::Point(start_x + legend_width / 2 - 65, start_y - 10),
               cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(255, 255, 255), 1,
               cv::LINE_AA);
 }
@@ -312,7 +329,7 @@ void CloudTracker::showResults() {
             << std::endl;
   std::cout << "Cloud Coverage Image 2: " << m_cloud_coverage_percentage2 << " %"
             << std::endl;
-  std::cout << "Average Wind Speed: " << m_avg_wind_speed << " units/time"
+  std::cout << "Average Wind Speed: " << m_avg_wind_speed << " km/hr"
             << std::endl;
   std::cout << "------------------" << std::endl;
   std::cout << "Press any key in the image windows to exit..." << std::endl;
