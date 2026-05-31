@@ -201,7 +201,13 @@ CloudTracker_IS_TOP_LEVEL:STATIC=ON
 CloudTracker_SOURCE_DIR:STATIC=D:/Computer-Vision/Computer-Vision
 
 //No help, variable specified on the command line.
-OpenCV_DIR:UNINITIALIZED=d:\Computer-Vision\opencv\opencv\build
+OpenCV_ARCH:UNINITIALIZED=x64
+
+//The directory containing a CMake configuration file for OpenCV.
+OpenCV_DIR:PATH=OpenCV_DIR-NOTFOUND
+
+//No help, variable specified on the command line.
+OpenCV_RUNTIME:UNINITIALIZED=vc16
 
 
 ########################

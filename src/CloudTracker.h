@@ -32,7 +32,8 @@ private:
   cv::Mat m_wind_speed_map;
   cv::Mat m_flow_visualization;
 
-  double m_cloud_coverage_percentage;
+  double m_cloud_coverage_percentage1;
+  double m_cloud_coverage_percentage2;
   double m_avg_wind_speed;
 
   // Internal helper functions

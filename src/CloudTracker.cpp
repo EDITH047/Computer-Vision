@@ -2,7 +2,7 @@
 #include <iostream>
 
 CloudTracker::CloudTracker()
-    : m_cloud_coverage_percentage(0.0), m_avg_wind_speed(0.0) {}
+    : m_cloud_coverage_percentage1(0.0), m_cloud_coverage_percentage2(0.0), m_avg_wind_speed(0.0) {}
 
 CloudTracker::~CloudTracker() {}
 
@@ -35,10 +35,9 @@ cv::Mat CloudTracker::preprocessAndMask(const cv::Mat &src_gray,
   cv::GaussianBlur(src_gray, blurred, cv::Size(5, 5), 0);
 
   // Perform thresholding to identify cloud regions.
-  // In infrared satellite imagery, both land and ocean surfaces are warm
-  // (dark/black), while clouds are cold (gray to white). A threshold around 50
-  // captures most cloud cover without picking up background noise.
-  cv::threshold(blurred, out_mask, 50, 255, cv::THRESH_BINARY);
+  // For true-color satellite imagery, clouds are bright white while ocean and land
+  // are darker. A higher threshold (e.g., 160) isolates clouds from land/ocean.
+  cv::threshold(blurred, out_mask, 160, 255, cv::THRESH_BINARY);
 
   return blurred;
 }
@@ -197,9 +196,12 @@ void CloudTracker::process(double timeDifference) {
 
   // 6. Calculate cloud coverage percentage
   int total_pixels = m_cloud_mask1.rows * m_cloud_mask1.cols;
-  int cloud_pixels = cv::countNonZero(m_cloud_mask1);
-  m_cloud_coverage_percentage =
-      (static_cast<double>(cloud_pixels) / total_pixels) * 100.0;
+  int cloud_pixels1 = cv::countNonZero(m_cloud_mask1);
+  int cloud_pixels2 = cv::countNonZero(m_cloud_mask2);
+  m_cloud_coverage_percentage1 =
+      (static_cast<double>(cloud_pixels1) / total_pixels) * 100.0;
+  m_cloud_coverage_percentage2 =
+      (static_cast<double>(cloud_pixels2) / total_pixels) * 100.0;
 
   // Create highlighted clouds image (will be colored by wind speed in
   // showResults)
@@ -276,10 +278,8 @@ void CloudTracker::showResults() {
   cv::normalize(m_wind_speed_map, wind_speed_vis, 0, 255, cv::NORM_MINMAX,
                 CV_8UC1);
 
-  // Invert visualization so low values map to Red and high values to Blue
-  // to match physical expectations where storm eye (small optical flow) has
-  // high wind speeds.
-  wind_speed_vis = 255 - wind_speed_vis;
+  // Low values map to Blue (0) and high values map to Red (255)
+  // which matches the Jet colormap and user expectations.
 
   cv::applyColorMap(wind_speed_vis, wind_speed_vis, cv::COLORMAP_JET);
 
@@ -294,8 +294,7 @@ void CloudTracker::showResults() {
   // Add legend
   drawLegend(m_highlighted_clouds);
 
-  // Overlay static text and borders in Yellow on Original + Motion vector views
-  m_img1_color.setTo(cv::Scalar(0, 255, 255), m_map_overlay);
+  // Overlay static text and borders in Yellow on Motion vector views
   m_flow_visualization.setTo(cv::Scalar(0, 255, 255), m_map_overlay);
 
   // Overlay country names in Yellow on Highlighted Clouds for contrast over the
@@ -309,7 +308,9 @@ void CloudTracker::showResults() {
 
   // Print statistics
   std::cout << "--- Statistics ---" << std::endl;
-  std::cout << "Cloud Coverage: " << m_cloud_coverage_percentage << " %"
+  std::cout << "Cloud Coverage Image 1: " << m_cloud_coverage_percentage1 << " %"
+            << std::endl;
+  std::cout << "Cloud Coverage Image 2: " << m_cloud_coverage_percentage2 << " %"
             << std::endl;
   std::cout << "Average Wind Speed: " << m_avg_wind_speed << " units/time"
             << std::endl;
