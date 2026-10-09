@@ -44,3 +44,52 @@ After pressing Enter, OpenCV windows will display the processing results:
 3. Highlighted Clouds
 4. Wind Direction Vectors
 5. Estimated Wind Speed Map
+
+---
+
+## Python Version
+
+A complete Python port of this application is available in the [`python/`](python/) directory.
+It is 100% functionally equivalent to the C++ version and requires no build step.
+
+### Python Requirements
+- Python 3.9 or newer
+- `opencv-python >= 4.8.0`
+- `numpy >= 1.24.0`
+- `tkinter` (included in standard Python installations)
+
+### Installing Python Dependencies
+
+```bat
+cd python
+pip install -r requirements.txt
+```
+
+### Running the Python Application
+
+```bat
+cd python
+python main.py
+```
+
+Or use the convenience launcher (installs dependencies automatically):
+
+```bat
+python\run.bat
+```
+
+A file dialog will appear to select T1 and T2 images, then the same three OpenCV windows are displayed:
+1. **Original Image 1** — unmodified first frame
+2. **Highlighted Clouds** — Jet colour-map heat-map keyed by wind speed + legend
+3. **Wind Direction Vectors** — red arrows showing cloud motion direction
+
+Statistics (cloud coverage %, average wind speed) are printed to the console.
+
+### Running Automated Tests (headless)
+
+```bat
+cd python
+python test_cloud_tracker.py
+```
+
+All 12 tests use synthetic images — no satellite images required.
